@@ -4,10 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     
     // Show nav after scrolling past landing page (or a portion of it)
-    // Also handle scroll indicator color and visibility
+    // Also handle scroll indicator visibility
     window.addEventListener('scroll', () => {
-        const triggerPoint = landingSection.offsetHeight * 0.5; // Show when 50% scrolled
-        const landingHeight = landingSection.offsetHeight;
+        const triggerPoint = landingSection.offsetHeight * 0.5; // Trigger at 50% of landing
         
         // Navigation visibility
         if (window.scrollY > triggerPoint) {
@@ -16,22 +15,46 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.classList.remove('visible');
         }
         
-        // Scroll indicator color change
-        if (window.scrollY > landingHeight) {
-            scrollIndicator.classList.add('dark');
-        } else {
-            scrollIndicator.classList.remove('dark');
-        }
-        
-        // Hide scroll indicator when at bottom of page
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.scrollY;
-        const clientHeight = window.innerHeight;
-        
-        if (scrollTop + clientHeight >= scrollHeight - 50) {
+        // Hide scroll indicator after scrolling past half of landing page
+        if (window.scrollY > triggerPoint) {
             scrollIndicator.classList.add('hidden');
         } else {
             scrollIndicator.classList.remove('hidden');
+        }
+    });
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    // nav is already defined at the top of the file
+    
+    function toggleMenu() {
+        const isActive = hamburger.classList.contains('active');
+        
+        if (!isActive) {
+            // Open menu
+            hamburger.classList.add('active');
+            navLinks.classList.add('active');
+            nav.classList.add('mobile-active');
+            document.body.style.overflow = 'hidden'; // Lock scroll
+        } else {
+            // Close menu
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            nav.classList.remove('mobile-active');
+            document.body.style.overflow = ''; // Unlock scroll
+        }
+    }
+    
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering document click if we add one later
+        toggleMenu();
+    });
+    
+    // Close menu when clicking anywhere on the overlay (links or background)
+    navLinks.addEventListener('click', () => {
+        if (hamburger.classList.contains('active')) {
+            toggleMenu();
         }
     });
 
