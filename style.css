@@ -232,31 +232,68 @@ main {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Slightly larger cards */
-    gap: 60px; /* Increased gap */
+    grid-template-columns: 1fr; /* Single column */
+    gap: 100px; /* Increased gap for single column layout */
+    max-width: 1500px; /* Max width constraint */
+    margin: 0 auto;
 }
 
+/* Enhanced Project Hover */
 .project-card {
-    background: #f0f0f0; /* Light grey for cards */
+    background: transparent; /* Remove background/border effect */
     aspect-ratio: 16/9;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 20px;
+    padding: 40px; /* Increased padding */
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
+    box-shadow: none; /* Remove default shadow */
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transform: scale(1.02); /* Scale only, no lift */
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2); /* Add shadow on hover */
+}
+
+.project-card img, .project-card video {
+    transition: transform 0.6s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.8; /* Default opacity */
+}
+
+.project-card:hover img, .project-card:hover video {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.project-info {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s ease;
 }
 
 .project-card h3 {
-    color: #fff; /* Keep title white as it's over an image */
-    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    color: #fff;
+    font-size: 2rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-info {
+    transform: translateY(-10px); /* Lift title */
+}
+
+.project-card:hover h3 {
+    color: #e6e0d4; /* Change color on hover (match bg) */
 }
 
 /* Footer */
@@ -284,6 +321,18 @@ footer {
     0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
     50% { opacity: 1; }
     100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
+}
+/* Typography Polish */
+p {
+    line-height: 1.8;
+    color: #444;
+    font-size: 1.1rem;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 /* Responsive */
