@@ -13,14 +13,21 @@
 
     <!-- Landing Page -->
     <header id="landing">
-        <div class="video-background">
-            <!-- Placeholder for video. User will replace src later. -->
-            <video autoplay muted loop playsinline poster="assets/placeholder-poster.jpg" id="bg-video">
-                <!-- Example of responsive video sources for vertical mobile video -->
-                <!-- <source src="assets/vertical-video.mp4" type="video/mp4" media="(max-width: 768px)"> -->
-                <source src="assets/placeholder-video.mp4" type="video/mp4">
+        <div class="video-wrapper">
+            <!-- Desktop (landscape 16:9) video -->
+            <video class="bg-video desktop" autoplay muted loop playsinline poster="assets/landing_hor-desktop-poster.jpg">
+                <source src="assets/landing_hor-desktop-1080p.mp4" type="video/mp4" media="(min-width: 768px)">
+                <source src="assets/landing_hor-desktop-720p.webm" type="video/webm" media="(min-width: 768px)">
                 Your browser does not support the video tag.
             </video>
+
+            <!-- Mobile (portrait 9:16) video -->
+            <video class="bg-video mobile" autoplay muted loop playsinline poster="assets/landing_ver-mobile-poster.jpg">
+                <source src="assets/landing_ver-mobile-720p.mp4" type="video/mp4" media="(max-width: 767px)">
+                <source src="assets/landing_ver-mobile-480p.webm" type="video/webm" media="(max-width: 767px)">
+                Your browser does not support the video tag.
+            </video>
+
             <div class="overlay-gradient"></div>
         </div>
 
