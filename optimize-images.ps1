@@ -12,7 +12,7 @@ Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
 # TinyPNG API Key
-$apiKey = "3hQHDf22XdWvBCZDW6lfbmB1ttf7Qp4B"
+$apiKey = "KM08d19zsGznnFJ319dSrxtD8X8hzKmT"
 
 # Check if files were provided
 if ($Files.Count -eq 0) {

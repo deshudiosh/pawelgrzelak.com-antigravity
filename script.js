@@ -1,15 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.getElementById('main-nav');
     const landingSection = document.getElementById('landing');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     
     // Show nav after scrolling past landing page (or a portion of it)
+    // Also handle scroll indicator color and visibility
     window.addEventListener('scroll', () => {
         const triggerPoint = landingSection.offsetHeight * 0.5; // Show when 50% scrolled
+        const landingHeight = landingSection.offsetHeight;
         
+        // Navigation visibility
         if (window.scrollY > triggerPoint) {
             nav.classList.add('visible');
         } else {
             nav.classList.remove('visible');
+        }
+        
+        // Scroll indicator color change
+        if (window.scrollY > landingHeight) {
+            scrollIndicator.classList.add('dark');
+        } else {
+            scrollIndicator.classList.remove('dark');
+        }
+        
+        // Hide scroll indicator when at bottom of page
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY;
+        const clientHeight = window.innerHeight;
+        
+        if (scrollTop + clientHeight >= scrollHeight - 50) {
+            scrollIndicator.classList.add('hidden');
+        } else {
+            scrollIndicator.classList.remove('hidden');
         }
     });
 

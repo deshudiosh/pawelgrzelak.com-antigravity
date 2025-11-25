@@ -129,7 +129,7 @@ pawelgrzelak.com-antigravity/
 2. Script compresses and **overwrites** originals
 3. Shows compression stats (KB saved, percentage)
 
-**API Key:** `3hQHDf22XdWvBCZDW6lfbmB1ttf7Qp4B`
+**API Key:** `KM08d19zsGznnFJ319dSrxtD8X8hzKmT`
 - Free tier: 500 compressions/month
 - Track usage: [tinypng.com/dashboard](https://tinypng.com/dashboard)
 
