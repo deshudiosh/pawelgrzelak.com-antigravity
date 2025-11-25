@@ -307,14 +307,13 @@ main {
     justify-content: flex-end;
     padding: 40px; /* Increased padding */
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: box-shadow 0.4s ease;
     position: relative;
     overflow: hidden;
     box-shadow: none; /* Remove default shadow */
 }
 
 .project-card:hover {
-    transform: scale(1.02); /* Scale only, no lift */
     box-shadow: 0 30px 60px rgba(0,0,0,0.2); /* Add shadow on hover */
 }
 
@@ -331,7 +330,6 @@ main {
 }
 
 .project-card:hover img, .project-card:hover video {
-    transform: scale(1.05);
     opacity: 1;
 }
 
@@ -364,6 +362,18 @@ footer {
     font-size: 0.9rem;
     border-top: 1px solid #eee;
     background: #fff;
+}
+
+/* Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Animations */
@@ -521,6 +531,11 @@ p {
     .artist-name {
         font-size: 3rem;
     }
+    
+    /* Mobile project cards - 9:16 aspect ratio */
+    .project-card {
+        aspect-ratio: 9/16;
+    }
 }
 
 /* Contact Button */
@@ -555,3 +570,33 @@ p {
     border-bottom: 1px solid #000;
     opacity: 1;
 }
+
+/* View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.5s;
+}
+
+::view-transition-old(root) {
+    animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+    animation-name: fade-in;
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Shared element transitions for project cards */
+.project-card {
+    view-transition-name: none; /* Will be set dynamically if needed */
+}
+

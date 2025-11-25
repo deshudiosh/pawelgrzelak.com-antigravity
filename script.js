@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Smooth scroll for anchor links (handled by CSS, but good to have JS backup/enhancement if needed)
+    // Smooth scroll for anchor links with View Transitions API
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -66,9 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // Check if View Transitions API is supported
+                if (document.startViewTransition) {
+                    // Use View Transitions API for smooth animated transition
+                    document.startViewTransition(() => {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                } else {
+                    // Fallback for browsers that don't support View Transitions
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
@@ -79,7 +90,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                // Check if it's a project card for staggered animation
+                if (entry.target.classList.contains('project-card')) {
+                    // Get all project cards
+                    const projectCards = document.querySelectorAll('.project-card');
+                    const index = Array.from(projectCards).indexOf(entry.target);
+                    
+                    // Add staggered delay (150ms per card)
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 150);
+                } else {
+                    // Non-project elements reveal immediately
+                    entry.target.classList.add('active');
+                }
                 observer.unobserve(entry.target); // Only animate once
             }
         });
