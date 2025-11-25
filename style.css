@@ -237,10 +237,10 @@ main {
 
 #main-nav.visible {
     transform: translateY(0);
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.3); /* Dark background */
     backdrop-filter: blur(10px); /* Blur effect */
     -webkit-backdrop-filter: blur(10px); /* Safari support */
-    color: #fff; /* Keep white text on blurred background */
+    color: #fff; /* White text */
     box-shadow: 0 2px 20px rgba(0,0,0,0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 }
@@ -444,7 +444,8 @@ p {
         justify-content: space-between;
         height: 100%;
         align-items: flex-start; /* Keep logo and hamburger at the top */
-        padding-top: 20px; /* Match original padding */
+        padding-top: 10px; /* Reduced padding for smaller navbar */
+        padding-bottom: 10px;
     }
     
     .logo {
@@ -454,14 +455,15 @@ p {
     
     /* When menu is open, expand the main nav to full screen */
     #main-nav {
-        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s, backdrop-filter 0.5s;
+        /* No transition by default for instant close */
     }
 
     #main-nav.mobile-active {
         height: 100vh;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(0, 0, 0, 0.5); /* Dark background for mobile menu */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
+        transition: height 0.5s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.5s, backdrop-filter 0.5s;
     }
 
     .nav-links {
@@ -477,8 +479,8 @@ p {
         gap: 40px;
         pointer-events: none;
         opacity: 0;
-        transition: opacity 0.3s ease; /* Faster fade out for better closing feel */
-        padding-top: 60px;
+        /* No transition for instant close */
+        padding: 0; /* Remove padding to properly center */
     }
     
     .nav-links.active {
